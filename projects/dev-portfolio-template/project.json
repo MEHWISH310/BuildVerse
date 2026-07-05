@@ -1,0 +1,15 @@
+{
+  "title": "Developer Portfolio Template",
+  "description": "A minimal, highly customizable portfolio template for developers. Built with Next.js, Framer Motion, and Tailwind CSS for rapid deployment.",
+  "author": {
+    "name": "MistryVishwa",
+    "github": "MistryVishwa"
+  },
+  "tags": [
+    "React",
+    "Template",
+    "CSS"
+  ],
+  "entry": "index.html",
+  "thumbnail": "thumbnail.svg"
+}

@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { ArrowRight, Code2, Users, FolderGit2, Terminal, Cpu } from "lucide-react";
 import { FaReact, FaHtml5, FaCss3Alt, FaJs } from "react-icons/fa";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/layout/PageTransition";
 import ProjectCard from "@/components/ui/ProjectCard";
 import GithubStats from "@/components/ui/GithubStats";
-import { projectsData } from "@/data/projects";
 import styles from "./page.module.css";
 
 const floatingBadges = [
@@ -17,6 +17,23 @@ const floatingBadges = [
 ];
 
 export default function Home() {
+  const [projectsData, setProjectsData] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/projects");
+        if (res.ok) {
+          const data = await res.json();
+          setProjectsData(data.projects);
+        }
+      } catch (e) {
+        console.error("Failed to fetch projects", e);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   return (
     <PageTransition>
       {/* Hero Section */}

@@ -1,0 +1,15 @@
+{
+  "title": "Markdown Notes Sync",
+  "description": "A rich-text markdown note-taking app with a clean UI, folder structures, and instant local storage persistence.",
+  "author": {
+    "name": "MistryVishwa",
+    "github": "MistryVishwa"
+  },
+  "tags": [
+    "JavaScript",
+    "CSS",
+    "Tool"
+  ],
+  "entry": "index.html",
+  "thumbnail": "thumbnail.svg"
+}

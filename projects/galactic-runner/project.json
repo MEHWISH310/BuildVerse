@@ -1,0 +1,15 @@
+{
+  "title": "Galactic Runner",
+  "description": "An endless runner HTML5 Canvas game with dynamic difficulty, particle effects, and local high-score persistence.",
+  "author": {
+    "name": "MistryVishwa",
+    "github": "MistryVishwa"
+  },
+  "tags": [
+    "Game",
+    "JavaScript",
+    "Canvas"
+  ],
+  "entry": "index.html",
+  "thumbnail": "thumbnail.svg"
+}

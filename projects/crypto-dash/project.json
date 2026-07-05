@@ -1,0 +1,15 @@
+{
+  "title": "Crypto Dashboard",
+  "description": "A beautiful, real-time cryptocurrency tracking dashboard utilizing WebSockets and advanced charting libraries.",
+  "author": {
+    "name": "MistryVishwa",
+    "github": "MistryVishwa"
+  },
+  "tags": [
+    "API",
+    "React",
+    "Dashboard"
+  ],
+  "entry": "index.html",
+  "thumbnail": "thumbnail.svg"
+}

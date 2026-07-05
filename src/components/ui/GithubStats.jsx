@@ -3,11 +3,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FolderGit2, Users, Code2, GitCommit } from "lucide-react";
-import { projectsData } from "@/data/projects";
-
 export default function GithubStats({ styles }) {
   const [stats, setStats] = useState({
-    projects: projectsData.length,
+    projects: 0,
     contributors: 0,
     contributions: 0,
     pullRequests: 0,
@@ -36,8 +34,19 @@ export default function GithubStats({ styles }) {
           pullRequestsCount = prData.total_count;
         }
 
+        // Fetch Projects Folder Count
+        const projectsRes = await fetch("https://api.github.com/repos/MistryVishwa/BuildVerse/contents/projects");
+        let projectsCount = 0;
+        if (projectsRes.ok) {
+          const projectsData = await projectsRes.json();
+          projectsCount = Array.isArray(projectsData) 
+            ? projectsData.filter(file => file.type === 'dir').length 
+            : 0;
+        }
+
         setStats(prev => ({
           ...prev,
+          projects: projectsCount,
           contributors: contributorsCount,
           contributions: totalContributions,
           pullRequests: pullRequestsCount,
@@ -54,7 +63,7 @@ export default function GithubStats({ styles }) {
   }, []);
 
   const statItems = [
-    { icon: FolderGit2, label: "Total Projects", value: stats.projects },
+    { icon: FolderGit2, label: "Total Projects", value: stats.loading ? "..." : stats.projects },
     { icon: Users, label: "Active Contributors", value: stats.loading ? "..." : stats.contributors },
     { icon: GitCommit, label: "Total Contributions", value: stats.loading ? "..." : stats.contributions },
     { icon: Code2, label: "Total Pull Requests", value: stats.loading ? "..." : stats.pullRequests }

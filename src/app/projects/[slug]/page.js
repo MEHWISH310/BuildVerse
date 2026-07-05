@@ -1,19 +1,43 @@
 "use client";
 
-import { use } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import PageTransition from "@/components/layout/PageTransition";
-import { projectsData } from "@/data/projects";
 import styles from "./page.module.css";
 
 export default function ProjectDetails({ params }) {
   const unwrappedParams = use(params);
   const slug = unwrappedParams.slug;
-  
-  // Find project by slug
-  const project = projectsData.find(p => p.slug === slug) || projectsData[0];
+  const [project, setProject] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/projects");
+        if (res.ok) {
+          const data = await res.json();
+          const found = data.projects.find(p => p.slug === slug);
+          setProject(found || null);
+        }
+      } catch (e) {
+        console.error("Failed to fetch project", e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchProjects();
+  }, [slug]);
+
+  if (isLoading) {
+    return <div className={`container ${styles.container}`}><p>Loading...</p></div>;
+  }
+
+  if (!project) {
+    return <div className={`container ${styles.container}`}><p>Project not found.</p></div>;
+  }
 
   return (
     <PageTransition>

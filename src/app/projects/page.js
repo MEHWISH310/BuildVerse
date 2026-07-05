@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/layout/PageTransition";
 import ProjectCard from "@/components/ui/ProjectCard";
-import { projectsData } from "@/data/projects";
 import styles from "./page.module.css";
 
 const categories = ["All", "HTML", "CSS", "JavaScript", "React", "App", "Productivity", "Game", "Tool"];
@@ -13,6 +12,25 @@ const categories = ["All", "HTML", "CSS", "JavaScript", "React", "App", "Product
 export default function ProjectsPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [projectsData, setProjectsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/projects");
+        if (res.ok) {
+          const data = await res.json();
+          setProjectsData(data.projects);
+        }
+      } catch (e) {
+        console.error("Failed to fetch projects", e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   const filteredProjects = projectsData.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(search.toLowerCase()) || 
@@ -58,12 +76,16 @@ export default function ProjectsPage() {
         </div>
 
         <div className="grid grid-cols-3">
-          {filteredProjects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
-          ))}
+          {isLoading ? (
+            <p className="text-muted">Loading projects...</p>
+          ) : (
+            filteredProjects.map((project, i) => (
+              <ProjectCard key={project.slug} project={project} index={i} />
+            ))
+          )}
         </div>
         
-        {filteredProjects.length === 0 && (
+        {!isLoading && filteredProjects.length === 0 && (
           <div className={styles.emptyState}>
             <p className="heading-3">No projects found.</p>
             <p className="text-muted">Try adjusting your search or filters.</p>

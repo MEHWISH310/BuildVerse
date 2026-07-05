@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BuildVerse
 
-## Getting Started
+A curated collection of web projects built by the community, for the community. Ship real projects, sharpen your craft, and earn recognition!
 
-First, run the development server:
+[🌐 Live Showcase](https://buildverse-demo.vercel.app/) &nbsp;•&nbsp; [🤝 Contribute](CONTRIBUTING.md)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 What Is This?
+BuildVerse is a community-driven repository where developers can submit their own static web projects. Every accepted project is automatically showcased on the live website.
+
+This repository serves as:
+- A practice ground for Git, GitHub, branching, and pull requests.
+- A portfolio platform where every contributor gets visible credit.
+- A launchpad for open-source programs.
+
+## ⚙️ How It Works
+
+```text
+projects/
+  ├── Task Master Pro/
+  │   ├── README.md
+  │   ├── project.json
+  │   ├── index.html
+  │   └── style.css
+  └── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Submission Flow
+1. Fork the repository and create a new branch.
+2. Add a folder inside `projects/` using Title Case with spaces.
+3. Include your project files along with `README.md` and `project.json`.
+4. Open a Pull Request.
+5. After approval, the showcase updates automatically!
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Full contribution rules and the `project.json` schema are available in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 👨‍💻 Maintainer
+Maintained by [@MistryVishwa](https://github.com/MistryVishwa)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Every merged contribution earns a permanent place in this wall. Thank you for helping future developers learn, build, and grow through open source.
