@@ -1,75 +1,102 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink, Star } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { Heart, Github, ExternalLink, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import styles from "./ProjectCard.module.css";
 
+// Helper to generate a consistent gradient based on a string
+function stringToColor(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const color1 = `hsl(${hash % 360}, 70%, 50%)`;
+  const color2 = `hsl(${(hash + 40) % 360}, 70%, 30%)`;
+  return `linear-gradient(135deg, ${color1}, ${color2})`;
+}
+
 export default function ProjectCard({ project, index = 0 }) {
+  const router = useRouter();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -10, scale: 1.02, boxShadow: "0 20px 40px -15px rgba(168, 85, 247, 0.4)" }}
+      whileHover={{ y: -8, scale: 1.02, boxShadow: "0 25px 50px -12px rgba(168, 85, 247, 0.4)" }}
       transition={{ delay: index * 0.1, duration: 0.4, ease: "easeOut" }}
       className={`glass-panel ${styles.card}`}
       style={{
         border: '1px solid rgba(255, 255, 255, 0.05)',
-        background: 'linear-gradient(145deg, rgba(30,30,35,0.6) 0%, rgba(20,20,25,0.8) 100%)',
+        background: 'rgba(20, 20, 25, 0.8)',
+        borderRadius: 'var(--radius)',
         overflow: 'hidden',
-        position: 'relative'
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
+      {/* Cover Image Section */}
       <div 
+        onClick={() => router.push(`/projects/${project.slug}`)}
         style={{ 
-          position: 'absolute', 
-          top: '-30px', 
-          right: '-30px', 
-          width: '120px', 
-          height: '120px', 
-          background: `radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%)`,
-          borderRadius: '50%',
-          zIndex: 0
-        }} 
-      />
-      <div className={styles.cardHeader}>
-        <div className={styles.authorInfo}>
-          <div className={styles.avatar}>
-            {project.author.name.charAt(0)}
-          </div>
-          <div className={styles.meta}>
-            <p className={styles.authorName}>{project.author.name}</p>
-            <p className={styles.authorGithub}>@{project.author.github}</p>
-          </div>
-        </div>
-        <div className={styles.links}>
-          <a href={`https://github.com/${project.author.github}`} target="_blank" rel="noreferrer" aria-label="GitHub">
-            <FaGithub size={18} />
-          </a>
-        </div>
+          height: '220px', 
+          width: '100%', 
+          background: project.image ? `url(${project.image}) center/cover` : stringToColor(project.title),
+          position: 'relative',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        {/* Placeholder if no image */}
+        {!project.image && (
+           <h2 style={{ color: 'rgba(255,255,255,0.4)', fontSize: '2rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '2px' }}>
+             {project.title.substring(0, 2)}
+           </h2>
+        )}
+
+        <button 
+          className={styles.favoriteBtn}
+          onClick={(e) => { e.stopPropagation(); /* Add favorite logic here */ }}
+        >
+          <Heart size={18} />
+        </button>
       </div>
 
+      {/* Card Content */}
       <div className={styles.cardBody}>
-        <h3 className={styles.title}>{project.title}</h3>
-        <p className={styles.description}>{project.description}</p>
+        <div style={{ cursor: 'pointer' }} onClick={() => router.push(`/projects/${project.slug}`)}>
+          <h3 className={styles.title}>{project.title}</h3>
+          <p className={styles.description}>{project.description}</p>
+        </div>
         
         <div className={styles.tags}>
-          {project.tags.map((tag) => (
+          {project.tags.slice(0, 3).map((tag) => (
             <span key={tag} className={styles.tag}>{tag}</span>
           ))}
+          {project.tags.length > 3 && (
+            <span className={styles.tag}>+{project.tags.length - 3}</span>
+          )}
         </div>
-      </div>
+        
+        <p className={styles.authorLine}>by <strong>{project.author.name}</strong></p>
 
-      <div className={styles.cardFooter}>
-        <Link href={`/projects/${project.slug}`} className={`btn btn-primary ${styles.viewBtn}`}>
-          View Details
-        </Link>
-        {project.demoUrl && (
-          <a href={project.demoUrl} target="_blank" rel="noreferrer" className={`btn btn-outline ${styles.demoBtn}`}>
-            <ExternalLink size={16} /> Live
+        <div className={styles.cardFooter}>
+          <a href={`https://github.com/${project.author.github}`} target="_blank" rel="noreferrer" className={styles.actionBtn}>
+            Source
           </a>
-        )}
+          {project.demoUrl && (
+            <a href={project.demoUrl} target="_blank" rel="noreferrer" className={styles.actionBtn}>
+              Preview
+            </a>
+          )}
+          <Link href={`/projects/${project.slug}`} className={styles.openBtn}>
+            Open
+          </Link>
+        </div>
       </div>
     </motion.div>
   );
