@@ -43,11 +43,5 @@ body:
       options:
         - label: I read CONTRIBUTING.md
           required: true
-        - label: My folder is named in Title Case with spaces
-          required: true
-        - label: My folder contains README.md, project.json and index.html
-          required: true
-        - label: My project opens by double-clicking index.html
-          required: true
         - label: My project has no console errors and no tracking scripts
           required: true
