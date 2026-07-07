@@ -53,7 +53,7 @@ export default function ProjectCard({ project, index = 0 }) {
       >
         {/* Placeholder if no image */}
         {!project.image && (
-           <h2 style={{ color: 'rgba(255,255,255,0.4)', fontSize: '2rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '2px' }}>
+           <h2 style={{ color: 'rgba(255,255,255,0.4)', fontSize: '2rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center', padding: '1rem' }}>
              {project.title.substring(0, 2)}
            </h2>
         )}
@@ -82,7 +82,9 @@ export default function ProjectCard({ project, index = 0 }) {
           )}
         </div>
         
-        <p className={styles.authorLine}>by <strong>{project.author.name}</strong></p>
+        <p className={styles.authorLine}>
+          by <a href={`https://github.com/${project.author.github}`} target="_blank" rel="noreferrer" style={{ fontWeight: 'bold', color: 'var(--text-main)', textDecoration: 'none' }} onClick={(e) => e.stopPropagation()}>@{project.author.github}</a>
+        </p>
 
         <div className={styles.cardFooter}>
           <a href={project.demoUrl || `/live/${project.slug}/index.html`} target="_blank" rel="noreferrer" className={styles.openBtn}>
