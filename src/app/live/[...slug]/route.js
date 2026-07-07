@@ -2,14 +2,35 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+const ALLOWED_EXTENSIONS = [
+  '.html', '.css', '.js', '.json', 
+  '.png', '.jpg', '.jpeg', '.svg', '.ico',
+  '.txt', '.md', '.woff', '.woff2', '.ttf'
+];
+
 export async function GET(request, { params }) {
   const resolvedParams = await params;
   const slugArray = resolvedParams.slug;
-  const filePath = path.join(process.cwd(), 'projects', ...slugArray);
   
-  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-    const file = fs.readFileSync(filePath);
-    const ext = path.extname(filePath).toLowerCase();
+  // Validate slug contains only safe characters (alphanumeric, hyphens, underscores)
+  const safeSlug = slugArray.map(s => s.replace(/[^a-zA-Z0-9\-_]/g, ''));
+  
+  if (safeSlug.some(s => s !== slugArray[slugArray.indexOf(s)])) {
+    return new NextResponse('Invalid characters in path', { status: 400 });
+  }
+  
+  const baseDir = path.join(process.cwd(), 'projects');
+  const filePath = path.join(baseDir, ...safeSlug);
+  
+  // Ensure the resolved path is within the projects directory (prevent path traversal)
+  const resolvedPath = path.resolve(filePath);
+  if (!resolvedPath.startsWith(baseDir)) {
+    return new NextResponse('Forbidden', { status: 403 });
+  }
+  
+  if (fs.existsSync(resolvedPath) && fs.statSync(resolvedPath).isFile()) {
+    const file = fs.readFileSync(resolvedPath);
+    const ext = path.extname(resolvedPath).toLowerCase();
     
     let contentType = 'text/plain';
     if (ext === '.html') contentType = 'text/html; charset=utf-8';
