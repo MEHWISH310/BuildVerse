@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FolderGit2, Users, Code2, GitCommit } from "lucide-react";
 import CountUp from "react-countup";
+import componentStyles from "./GithubStats.module.css";
+
 export default function GithubStats({ styles }) {
   const [stats, setStats] = useState({
     projects: 0,
@@ -80,18 +82,7 @@ export default function GithubStats({ styles }) {
           whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(168, 85, 247, 0.3)" }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-          className={`glass-panel`}
-          style={{ 
-            padding: '2rem 1.5rem', 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            textAlign: 'center', 
-            gap: '1rem',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            background: 'linear-gradient(145deg, rgba(30,30,35,0.4) 0%, rgba(20,20,25,0.4) 100%)',
-            transition: 'border-color 0.3s ease'
-          }}
+          className={`glass-panel ${componentStyles.card}`}
         >
           <div style={{ 
             padding: '1rem', 

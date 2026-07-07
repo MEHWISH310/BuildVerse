@@ -122,3 +122,34 @@
   letter-spacing: 1px;
   color: var(--muted-foreground);
 }
+
+/* Light Theme Overrides */
+:global([data-theme='light']) .card {
+  background: var(--card);
+  border: 1px solid var(--primary);
+}
+:global([data-theme='light']) .card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 10px 40px -10px var(--card-border);
+}
+:global([data-theme='light']) .ring {
+  border: 2px dashed var(--primary);
+}
+:global([data-theme='light']) .card:hover .ring {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px var(--card-border);
+}
+:global([data-theme='light']) .scoreBadge {
+  border: 2px solid var(--background);
+}
+:global([data-theme='light']) .login,
+:global([data-theme='light']) .statValue {
+  color: var(--foreground);
+}
+:global([data-theme='light']) .githubLabel,
+:global([data-theme='light']) .statLabel {
+  color: var(--muted-foreground);
+}
+:global([data-theme='light']) .statsGrid {
+  border-top: 1px solid var(--border);
+}

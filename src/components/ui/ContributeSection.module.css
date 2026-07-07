@@ -112,3 +112,16 @@
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
 }
+
+/* Light Theme Overrides */
+:global([data-theme='light']) .card {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+:global([data-theme='light']) .cardTitle,
+:global([data-theme='light']) .ctaText {
+  color: var(--foreground);
+}
+:global([data-theme='light']) .cardDesc {
+  color: var(--muted-foreground);
+}

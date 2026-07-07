@@ -52,8 +52,6 @@ export default function ProjectCard({ project, index = 0 }) {
       transition={{ delay: index * 0.1, duration: 0.4, ease: "easeOut" }}
       className={`glass-panel ${styles.card}`}
       style={{
-        border: '1px solid rgba(255, 255, 255, 0.05)',
-        background: 'rgba(20, 20, 25, 0.8)',
         borderRadius: 'var(--radius)',
         overflow: 'hidden',
         position: 'relative',

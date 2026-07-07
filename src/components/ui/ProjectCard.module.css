@@ -2,6 +2,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 25, 0.8);
 }
 
 .favoriteBtn {
@@ -122,4 +124,30 @@
 
 .openBtn:hover {
   opacity: 0.9;
+}
+
+/* Light Theme Overrides */
+:global([data-theme='light']) .card {
+  background: var(--card);
+  border: 1px solid var(--primary);
+}
+:global([data-theme='light']) .title,
+:global([data-theme='light']) .authorLine strong,
+:global([data-theme='light']) .actionBtn {
+  color: var(--foreground);
+}
+:global([data-theme='light']) .description {
+  color: var(--muted-foreground);
+}
+:global([data-theme='light']) .tag {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted-foreground);
+}
+:global([data-theme='light']) .actionBtn {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+:global([data-theme='light']) .actionBtn:hover {
+  background: var(--muted);
 }
