@@ -186,11 +186,12 @@
     <!-- Gamification & Challenges -->
     <div class="card">
       <h2><div class="card-icon" style="background: var(--accent-badges);">🏆</div> Challenges & Badges</h2>
-      <p class="metric-desc">Maintain streaks to unlock badges!</p>
+      <p class="metric-desc">Maintain streaks to unlock wellness challenges!</p>
       <div class="badges-container">
-        <div class="badge" id="badge-water">💧 Hydration (3 Days)</div>
-        <div class="badge" id="badge-sleep">🌙 Perfect Sleep (3 Days)</div>
-        <div class="badge" id="badge-fitness">🏃 Fitness Streak (3 Days)</div>
+        <div class="badge" id="badge-water">💧 7-Day Hydration Challenge</div>
+        <div class="badge" id="badge-sleep">🌙 Sleep Improvement Challenge</div>
+        <div class="badge" id="badge-fitness">🏃 Fitness Streak Challenge</div>
+        <div class="badge" id="badge-mindfulness">🧘 Mindfulness Challenge</div>
       </div>
     </div>
 
@@ -318,9 +319,10 @@
     document.getElementById('stressInput').value = state.stress;
 
     // Badges
-    document.getElementById('badge-water').className = 'badge ' + (state.streaks?.water >= 3 ? 'unlocked' : '');
+    document.getElementById('badge-water').className = 'badge ' + (state.streaks?.water >= 7 ? 'unlocked' : '');
     document.getElementById('badge-sleep').className = 'badge ' + (state.streaks?.sleep >= 3 ? 'unlocked' : '');
     document.getElementById('badge-fitness').className = 'badge ' + (state.streaks?.exercise >= 3 ? 'unlocked' : '');
+    document.getElementById('badge-mindfulness').className = 'badge ' + (state.stress <= 4 && state.mood === 'great' ? 'unlocked' : '');
 
     // Theme
     document.documentElement.setAttribute('data-theme', state.theme);
